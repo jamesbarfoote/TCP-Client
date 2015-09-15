@@ -38,21 +38,52 @@ int main(argc, argv) int argc; char *argv[];{
   server.sin_port = htons(atoi(argv[2]));
 
   // Create socket
-  int sockfd = socket(AF_INET, SOCK_STREAM, 1);
-  
+  int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+  if(sockfd < 0)
+  {
+    fprintf(stderr,"ERROR creating socket\n");
+  }
+  else
+  {
+    fprintf(stderr,"created socket\n");
+  }
 
   // connect (3-way handshake)
-  connect(sockfd,  (struct sockaddr *)&server, 1024);
+  if(connect(sockfd,  (struct sockaddr *)&server, bufsize) < 0)
+  {
+    fprintf(stderr,"ERROR connecting\n");
+  }
+  else
+  {
+    fprintf(stderr,"connected\n");
+  }
+  fprintf(stderr,"connect done\n");
 
   // Copy the arg into buf so we can send it to the server
 
   strncpy(buf, argv[3], bufsize);
 
   // Send sentence to server
-  write(sockfd, buf, bufsize);
+  printf("Message: %s\n",buf);
+  if(write(sockfd, buf, bufsize) < 0)
+  {
+    fprintf(stderr,"ERROR writing\n");
+  }
+  else
+  {
+    fprintf(stderr,"write successful\n");
+  }
+
 
   // read response from server
-  read(sockfd, buf, bufsize);
+  if(read(sockfd, buf, bufsize) < 0)
+  {
+    fprintf(stderr,"ERROR reading\n");
+  }
+  else
+  {
+    fprintf(stderr,"read successful\n");
+  }
 
   // print result to window
 
