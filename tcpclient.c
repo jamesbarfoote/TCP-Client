@@ -42,6 +42,7 @@ int main(argc, argv) int argc; char *argv[];{
   if(sockfd < 0)
   {
     fprintf(stderr,"ERROR creating socket\n");
+    return 1;
   }
   else
   {
@@ -49,15 +50,15 @@ int main(argc, argv) int argc; char *argv[];{
   }
 
   // connect (3-way handshake)
-  if(connect(sockfd,  (struct sockaddr *)&server, bufsize) < 0)
+  if(connect(sockfd,  (struct sockaddr *)&server, sizeof(server)) < 0)
   {
     fprintf(stderr,"ERROR connecting\n");
+    return 1;
   }
   else
   {
     fprintf(stderr,"connected\n");
   }
-  fprintf(stderr,"connect done\n");
 
   // Copy the arg into buf so we can send it to the server
 
@@ -68,17 +69,20 @@ int main(argc, argv) int argc; char *argv[];{
   if(write(sockfd, buf, bufsize) < 0)
   {
     fprintf(stderr,"ERROR writing\n");
+    return 1;
   }
   else
   {
     fprintf(stderr,"write successful\n");
   }
 
+  fprintf(stderr,"about to read\n");
 
   // read response from server
   if(read(sockfd, buf, bufsize) < 0)
   {
     fprintf(stderr,"ERROR reading\n");
+    return 1;
   }
   else
   {
