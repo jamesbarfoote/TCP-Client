@@ -1,0 +1,21 @@
+Questions:
+1.  Why will it usually take long time to detect that a socket communication party is
+not reachable?
+
+
+2. . Is it possible to force a socket to empty its data in the buffer? If so, how to do
+that?
+    No it is not possible to force the buffer to empty. One reason is because of how TCP uses a Window.
+
+3. Explain the concept of out-of-band data in socket communication.
+
+
+4.  Suppose that you want to deliver a series of messages in order and reliably from
+computer A to computer B through the Internet. Discuss how to achieve this goal
+through socket programming.
+
+5. Suppose that a socket client running on a SPARC processor is receiving an
+integer from a socket server running on an ALPHA processor. Suppose also that the
+SPARC processor stores an integer in 32 bits and the ALPHA processor stores an
+integer in 64 bits. Can the socket client receive the correct integer from the socket
+server? Make sure that you explain your answers.
